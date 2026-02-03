@@ -1,0 +1,34 @@
+# Memory Keeper usage reference
+
+## Typical workflow
+
+1. Update the workspace memory files (`memory/*.md`, `MEMORY.md`, and `AGENTS.md`, `SOUL.md`, `USER.md`, `TOOLS.md`, `HEARTBEAT.md`) as you go.
+2. Run Memory Keeper to copy them to a dedicated archive directory or git repo, e.g.:  
+   ```bash
+   python3 skills/memory-keeper/scripts/memory_sync.py --target ~/clawdy-memories --commit --message "Post-session sync" --remote https://github.com/CrimsonDevil333333/clawdy-memories.git --push
+   ```
+3. The archive retains the same folder structure, so you can always pull it back into another workspace or inspect the history when you need context recovery.
+
+## CLI options
+
+- `--workspace / -w`: Path to your OpenClaw workspace (default: current directory).  
+- `--target / -t`: Destination folder for the archive (default: `<workspace>/memory-archive`).  
+- `--commit`: Run `git add .` and `git commit` after copying.  
+- `--message`: Commit message (default: `Update memory archive`).  
+- `--remote`: Optional git remote URL to configure before pushing.  
+- `--branch`: Branch name for push (default: `master`).  
+- `--push`: Push the commit after it is created (requires `--remote`).  
+- `--allow-extra`: Additional workspace globs to include (e.g., `--allow-extra extra-notes.md`).  
+- `--skip-memory`: Exclude `memory/` if you only want the high-level docs.
+
+## Automation tips
+
+- Install this skill on any agent that needs a resilient memory archive; just configure `--target` to a repo that you control.
+- Run Memory Keeper before risky operations (system upgrades, config changes, restarts) so you can roll back with your last memory snapshot.
+- Call `memory_sync.py` from a cron job or heartbeat check when you need regular backups, but add `--commit --message "Heartbeat sync"` and avoid `--push` unless you really need remote updates to prevent noise.
+
+## Troubleshooting
+
+- **`git` errors**: ensure the destination is writable and that you have `git` installed on your system.  
+- **Remote refused**: double-check the URL/token you’re using and run `git remote -v` inside the archive to debug.  
+- **Files missing**: confirm you ran the command from the correct workspace or pass `--workspace` explicitly.
