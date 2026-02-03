@@ -20,3 +20,8 @@ python3 skills/memory-keeper/scripts/memory_sync.py --target ~/clawdy-memories -
 ```
 
 See `references/usage.md` for configuration tips, automation recipes, and a troubleshooting guide.
+
+## Resources
+
+- **GitHub:** https://github.com/CrimsonDevil333333/memory-keeper
+- **ClawHub:** https://www.clawhub.ai/skills/memory-keeper
