@@ -197,7 +197,7 @@ def main() -> int:
     if not commit_result:
         return 1
 
-    log_memory_update(workspace, target, args.commit, args.push, args.remote)
+    # log_memory_update(workspace, target, args.commit, args.push, args.remote)
 
     print(f"Memory archive synchronized to {target}")
     return 0
